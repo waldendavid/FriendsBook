@@ -3,6 +3,7 @@ package pl.karol.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,8 +13,15 @@ import pl.karol.model.Friend;
 @Repository
 public class FriendDaoImpl implements Dao<Friend> {
 
-	@Autowired
+	//@Autowired
+	@PersistenceContext
+	EntityManager entityManager; 
+	
+	
+	
 	private EntityManagerFactory entityManagerFactory;
+	
+	
 
 	@Override
 	public void create(Friend t) {
@@ -30,10 +38,11 @@ public class FriendDaoImpl implements Dao<Friend> {
 
 	@Override
 	public Friend read(Integer id) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+	//	EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		Friend friend = entityManager.find(Friend.class, id);
-		entityManager.close();
+
+		//entityManager.close();
 
 		return friend;
 	}
