@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pl.karol.model.Friend;
@@ -11,6 +12,7 @@ import pl.karol.model.Friend;
 @Repository
 public class FriendDaoImpl implements Dao<Friend> {
 
+	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 
 	@Override
@@ -53,11 +55,11 @@ public class FriendDaoImpl implements Dao<Friend> {
 	public void delete(Integer id) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
+
 		Friend friend = entityManager.find(Friend.class, id);
-		
+
 		entityManager.remove(friend);
-		
+
 		entityTransaction.commit();
 		entityManager.close();
 	}
