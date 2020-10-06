@@ -9,8 +9,12 @@ import pl.karol.model.Friend;
 @Service
 public class FriendService {
 
-	@Autowired
 	private Dao<Friend> friendDao;
+	
+	@Autowired
+	public FriendService(Dao<Friend> friendDao) {
+		this.friendDao = friendDao;
+	}
 
 	public void create(Friend friend) {
 		friendDao.create(friend);

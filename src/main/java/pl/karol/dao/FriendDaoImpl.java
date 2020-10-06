@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,64 +14,38 @@ import pl.karol.model.Friend;
 @Repository
 public class FriendDaoImpl implements Dao<Friend> {
 
-	//@Autowired
 	@PersistenceContext
-	EntityManager entityManager; 
-	
-	
-	
-	private EntityManagerFactory entityManagerFactory;
-	
-	
+	private EntityManager entityManager;
 
 	@Override
+	@Transactional
 	public void create(Friend t) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
 		entityManager.persist(t);
-
-		entityTransaction.commit();
-		entityManager.close();
-
+		
 	}
 
 	@Override
+	@Transactional
 	public Friend read(Integer id) {
-	//	EntityManager entityManager = entityManagerFactory.createEntityManager();
-
 		Friend friend = entityManager.find(Friend.class, id);
-
-		//entityManager.close();
-
 		return friend;
 	}
 
 	@Override
+	@Transactional
 	public void update(Friend t) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
-		entityManager.merge(t);
-
-		entityTransaction.commit();
-		entityManager.close();
-
+		Friend friend = entityManager.find(Friend.class, t.getId());
+		//TODO if != null, set fn ln em
+		
 	}
 
 	@Override
+	@Transactional
 	public void delete(Integer id) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
 		Friend friend = entityManager.find(Friend.class, id);
-
 		entityManager.remove(friend);
-
-		entityTransaction.commit();
-		entityManager.close();
 	}
-
+	
+	
+	
 }
