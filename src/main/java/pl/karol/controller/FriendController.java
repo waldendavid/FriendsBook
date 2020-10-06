@@ -25,8 +25,6 @@ public class FriendController {
 		return "form";
 	}
 	
-	
-	
 	@GetMapping("/test")
 	public String homePage(Model model) {
 		Friend friend = friendService.read(1);
@@ -41,7 +39,11 @@ public class FriendController {
 		return "redirect:/test";
 	}
 	
-	//@DeleteMapping("/friends/{id}")
+	@GetMapping("/friends/{id}")
+	public String deleteFriend(@PathVariable("id") Integer id) {
+		friendService.delete(id);
+		return "redirect:/test";
+	}
 	
 	
 
