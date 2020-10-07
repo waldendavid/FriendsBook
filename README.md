@@ -24,4 +24,4 @@ According to the [pattern](https://madhuraoakblog.wordpress.com/category/core-j2
 ## What I should to learn and improve
   * REST, also HTTP, adresses,
   * Posibilities of Spring Boot,
-  * Developing views - front-end.
+  * Developing views - front-end (JS? TS Angular?).
